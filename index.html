@@ -4,10 +4,1080 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./dist/output.css">
+    <link rel="stylesheet" href="./dist/output.css" />
     <title>Document</title>
+
+    <!-- Jquery -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.1.slim.min.js"
+      integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA="
+      crossorigin="anonymous"
+    ></script>
+    <!-- Barba Core -->
+    <script src="https://unpkg.com/@barba/core"></script>
+    <!-- GSAP -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"
+      integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <!-- GSAP ScrollTrigger -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"
+      integrity="sha512-5efjkDjhldlK+BrHauVYJpbjKrtNemLZksZWxd6Wdxvm06dceqWGLLNjZywOkvW7BF032ktHRMUOarbK9d60bg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <!-- Polyfill -->
+    <script
+      crossorigin="anonymous"
+      src="https://polyfill.io/v3/polyfill.min.js?features=default%2CArray.prototype.find%2CIntersectionObserver"
+    ></script>
+    <!-- LazySizes -->
+    <script src="/src/lazysizes.min.js"></script>
+    <!-- Global JS File -->
+    <script src="/src/global.js"></script>
   </head>
-  <body>
-    <h1>Hello World!</h1>
+
+  <body id="app" onload="loading()" class="bg-white scrollbar-hide">
+    <!-- Enable JS -->
+    <noscript>
+      <div class="no-js">Please enable JavaScript to view this website.</div>
+    </noscript>
+    <!-- Intro Screen -->
+    <div
+      id="preloader"
+      class="absolute z-[998] flex h-screen w-full flex-col items-center justify-center bg-black"
+    >
+      <div class="w-full-h-screen relative flex flex-row items-center">
+        <p class="text-10xl uppercase text-white">Adrian Souto</p>
+      </div>
+      <div id="percent" class="mt-20 text-white">1%</div>
+      <div id="bar" class="mt-5 w-1/4">
+        <div id="barconfirm" class="w-px bg-white px-0 py-px"></div>
+      </div>
+    </div>
+    <!-- Barba JS Loading Screen -->
+    <div
+      class="pointer-events-none fixed top-0 left-0 z-50 h-screen w-full overflow-hidden"
+    >
+      <div
+        id="loading-screen"
+        class="relative h-full w-0 bg-black px-0 pt-0"
+      ></div>
+    </div>
+    <!-- Custom Cursor -->
+    <div class="cursor">
+      <div id="cursor-inner">
+        <span class="progress">
+          <svg height="64" width="64">
+            <circle
+              cx="32"
+              cy="32"
+              r="15"
+              stroke-width="30"
+              fill="none"
+              style="transition-duration: 0s; stroke-dasharray: 100, 100"
+            ></circle>
+          </svg>
+        </span>
+      </div>
+      <div id="cursor-outer"></div>
+    </div>
+    <!-- Progress Bar -->
+    <div class="fixed top-0 left-0 h-2 w-full bg-transparent">
+      <div class="h-2 w-0 bg-black" id="progressBar"></div>
+    </div>
+    <!-- Navigation -->
+    <nav class="c-navbar flex items-center justify-between p-6" id="js-navbar">
+      <!-- Logo -->
+      <div class="z-[300]">
+        <a href="/index.html" id="project" class="text-lg tracking-tight"
+          >Adrian Souto</a
+        >
+      </div>
+      <!-- Menu Toggle -->
+      <button
+        class="c-navbar__menu z-[300]"
+        id="js-navbar-menu-toggle"
+        aria-controls="js-navbar-links"
+      >
+        <span class="text-lg tracking-tight">Menu</span>
+      </button>
+      <!-- Menu Content -->
+      <div class="c-navbar__links" id="js-navbar-links">
+        <div class="container-fluid px-4">
+          <div class="row mx-2 flex flex-wrap">
+            <ul class="c-navbar__list h-screen justify-center space-y-4 px-2">
+              <li class="c-navbar__list-item flex justify-center">
+                <a
+                  href="/personal"
+                  class="c-navbar__list-link js-navbar-image-toggle"
+                  data-link="personal"
+                >
+                  Personal
+                </a>
+              </li>
+              <li class="c-navbar__list-item flex justify-center">
+                <a
+                  href="/professional"
+                  class="c-navbar__list-link js-navbar-image-toggle"
+                  data-link="professional"
+                >
+                  Professional
+                </a>
+              </li>
+              <li class="c-navbar__list-item flex justify-center">
+                <a
+                  href="/video"
+                  class="c-navbar__list-link js-navbar-image-toggle"
+                  data-link="video"
+                >
+                  Video
+                </a>
+              </li>
+              <li class="c-navbar__list-item flex justify-center">
+                <a
+                  href="/about-me"
+                  class="c-navbar__list-link js-navbar-image-toggle"
+                  data-link="about"
+                >
+                  About me
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="c-navbar__images c-navbar__images--personal">
+            <div class="c-navbar-image__media-container">
+              <picture
+                ><source
+                  srcset="
+                    https://images.prismic.io/juliajohnson/47952eb6-5c33-490a-87a9-0cb3f4652d97_personal-08.jpg?auto=compress,format&amp;width=600
+                  "
+                  data-srcset="https://images.prismic.io/juliajohnson/47952eb6-5c33-490a-87a9-0cb3f4652d97_personal-08.jpg?auto=compress,format&amp;width=600"
+                  media="(min-width: 300px)"
+                />
+                <img
+                  src="https://images.prismic.io/juliajohnson/47952eb6-5c33-490a-87a9-0cb3f4652d97_personal-08.jpg?auto=compress,format&amp;width=50"
+                  class="c-navbar-image__media lazyloaded"
+                  alt=""
+                />
+              </picture>
+            </div>
+            <div class="c-navbar-image__media-container">
+              <picture
+                ><source
+                  srcset="
+                    https://images.prismic.io/juliajohnson/f8e300d0-2538-46dc-97d7-e008714f7a7c_personal-09.jpg?auto=compress,format&amp;width=600
+                  "
+                  data-srcset="https://images.prismic.io/juliajohnson/f8e300d0-2538-46dc-97d7-e008714f7a7c_personal-09.jpg?auto=compress,format&amp;width=600"
+                  media="(min-width: 300px)"
+                />
+                <img
+                  src="https://images.prismic.io/juliajohnson/f8e300d0-2538-46dc-97d7-e008714f7a7c_personal-09.jpg?auto=compress,format&amp;width=50"
+                  class="c-navbar-image__media lazyloaded"
+                  alt=""
+                />
+              </picture>
+            </div>
+            <div class="c-navbar-image__media-container">
+              <picture
+                ><source
+                  srcset="
+                    https://images.prismic.io/juliajohnson/a7c39fde-05e2-4265-8f92-34bf0ea1437b_personal-05.jpg?auto=compress,format&amp;width=600
+                  "
+                  data-srcset="https://images.prismic.io/juliajohnson/a7c39fde-05e2-4265-8f92-34bf0ea1437b_personal-05.jpg?auto=compress,format&amp;width=600"
+                  media="(min-width: 300px)"
+                />
+                <img
+                  src="https://images.prismic.io/juliajohnson/a7c39fde-05e2-4265-8f92-34bf0ea1437b_personal-05.jpg?auto=compress,format&amp;width=50"
+                  class="c-navbar-image__media lazyloaded"
+                  alt=""
+                />
+              </picture>
+            </div>
+          </div>
+          <div class="c-navbar__images c-navbar__images--professional">
+            <div class="c-navbar-image__media-container">
+              <picture
+                ><source
+                  srcset="
+                    https://images.prismic.io/juliajohnson/62708af0-c5a4-4c8d-98dc-21700a637a3e_commisioned-08.jpg?auto=compress,format&amp;width=600
+                  "
+                  data-srcset="https://images.prismic.io/juliajohnson/62708af0-c5a4-4c8d-98dc-21700a637a3e_commisioned-08.jpg?auto=compress,format&amp;width=600"
+                  media="(min-width: 300px)"
+                />
+                <img
+                  src="https://images.prismic.io/juliajohnson/62708af0-c5a4-4c8d-98dc-21700a637a3e_commisioned-08.jpg?auto=compress,format&amp;width=50"
+                  class="c-navbar-image__media lazyloaded"
+                  alt=""
+                />
+              </picture>
+            </div>
+            <div class="c-navbar-image__media-container">
+              <picture
+                ><source
+                  srcset="
+                    https://images.prismic.io/juliajohnson/c3abeab0-a60b-4997-b513-40d0a286a046_commisioned-10.jpg?auto=compress,format&amp;width=600
+                  "
+                  data-srcset="https://images.prismic.io/juliajohnson/c3abeab0-a60b-4997-b513-40d0a286a046_commisioned-10.jpg?auto=compress,format&amp;width=600"
+                  media="(min-width: 300px)"
+                />
+                <img
+                  src="https://images.prismic.io/juliajohnson/c3abeab0-a60b-4997-b513-40d0a286a046_commisioned-10.jpg?auto=compress,format&amp;width=50"
+                  class="c-navbar-image__media lazyloaded"
+                  alt=""
+                />
+              </picture>
+            </div>
+            <div class="c-navbar-image__media-container">
+              <picture
+                ><source
+                  srcset="
+                    https://images.prismic.io/juliajohnson/ebd18bfc-f5b9-43ea-a9a3-f4288bd76243_commisioned-07.jpg?auto=compress,format&amp;width=600
+                  "
+                  data-srcset="https://images.prismic.io/juliajohnson/ebd18bfc-f5b9-43ea-a9a3-f4288bd76243_commisioned-07.jpg?auto=compress,format&amp;width=600"
+                  media="(min-width: 300px)"
+                />
+                <img
+                  src="https://images.prismic.io/juliajohnson/ebd18bfc-f5b9-43ea-a9a3-f4288bd76243_commisioned-07.jpg?auto=compress,format&amp;width=50"
+                  class="c-navbar-image__media lazyloaded"
+                  alt=""
+                />
+              </picture>
+            </div>
+          </div>
+          <div class="c-navbar__images c-navbar__images--video">
+            <div class="c-navbar-image__media-container">
+              <picture
+                ><source
+                  srcset="
+                    https://images.prismic.io/juliajohnson/a8e24aa7-e9b1-4458-85ee-8a14fc83e631_Video_3.jpg?auto=compress,format&amp;width=600
+                  "
+                  data-srcset="https://images.prismic.io/juliajohnson/a8e24aa7-e9b1-4458-85ee-8a14fc83e631_Video_3.jpg?auto=compress,format&amp;width=600"
+                  media="(min-width: 300px)"
+                />
+                <img
+                  src="https://images.prismic.io/juliajohnson/a8e24aa7-e9b1-4458-85ee-8a14fc83e631_Video_3.jpg?auto=compress,format&amp;width=50"
+                  class="c-navbar-image__media lazyloaded"
+                  alt=""
+                />
+              </picture>
+            </div>
+            <div class="c-navbar-image__media-container">
+              <picture
+                ><source
+                  srcset="
+                    https://images.prismic.io/juliajohnson/30db9179-e117-43f0-923e-e4051350d976_Video_4.jpg?auto=compress,format&amp;width=600
+                  "
+                  data-srcset="https://images.prismic.io/juliajohnson/30db9179-e117-43f0-923e-e4051350d976_Video_4.jpg?auto=compress,format&amp;width=600"
+                  media="(min-width: 300px)"
+                />
+                <img
+                  src="https://images.prismic.io/juliajohnson/30db9179-e117-43f0-923e-e4051350d976_Video_4.jpg?auto=compress,format&amp;width=50"
+                  class="c-navbar-image__media lazyloaded"
+                  alt=""
+                />
+              </picture>
+            </div>
+            <div class="c-navbar-image__media-container">
+              <picture
+                ><source
+                  srcset="
+                    https://images.prismic.io/juliajohnson/3bc2dc4b-f9a0-45af-b5fb-08e0dc75efff_Video_6.jpg?auto=compress,format&amp;width=600
+                  "
+                  data-srcset="https://images.prismic.io/juliajohnson/3bc2dc4b-f9a0-45af-b5fb-08e0dc75efff_Video_6.jpg?auto=compress,format&amp;width=600"
+                  media="(min-width: 300px)"
+                />
+                <img
+                  src="https://images.prismic.io/juliajohnson/3bc2dc4b-f9a0-45af-b5fb-08e0dc75efff_Video_6.jpg?auto=compress,format&amp;width=50"
+                  class="c-navbar-image__media lazyloaded"
+                  alt=""
+                />
+              </picture>
+            </div>
+          </div>
+          <div class="c-navbar__images c-navbar__images--about">
+            <div class="c-navbar-image__media-container">
+              <picture
+                ><source
+                  srcset="
+                    https://images.prismic.io/juliajohnson/824ebf76-c26f-4af4-a2a2-8872ea3815d0_JUCO_SELFIES0883.jpg?auto=compress,format&amp;width=50
+                  "
+                  data-srcset="https://images.prismic.io/juliajohnson/824ebf76-c26f-4af4-a2a2-8872ea3815d0_JUCO_SELFIES0883.jpg?auto=compress,format&amp;width=600"
+                  media="(min-width: 300px)"
+                />
+                <img
+                  src="https://images.prismic.io/juliajohnson/824ebf76-c26f-4af4-a2a2-8872ea3815d0_JUCO_SELFIES0883.jpg?auto=compress,format&amp;width=50"
+                  class="c-navbar-image__media lazyload"
+                  alt=""
+                />
+              </picture>
+            </div>
+            <div class="c-navbar-image__media-container">
+              <picture
+                ><source
+                  srcset="
+                    https://images.prismic.io/juliajohnson/c47910e2-b1a6-4bf7-b963-51320e5f1158_JUCO_SELFIES1067.jpg?auto=compress,format&amp;width=50
+                  "
+                  data-srcset="https://images.prismic.io/juliajohnson/c47910e2-b1a6-4bf7-b963-51320e5f1158_JUCO_SELFIES1067.jpg?auto=compress,format&amp;width=600"
+                  media="(min-width: 300px)"
+                />
+                <img
+                  src="https://images.prismic.io/juliajohnson/c47910e2-b1a6-4bf7-b963-51320e5f1158_JUCO_SELFIES1067.jpg?auto=compress,format&amp;width=50"
+                  class="c-navbar-image__media lazyload"
+                  alt=""
+                />
+              </picture>
+            </div>
+            <div class="c-navbar-image__media-container">
+              <picture
+                ><source
+                  srcset="
+                    https://images.prismic.io/juliajohnson/a532690a-e7b9-45b1-b3eb-cb3a7e0faad8_JUCO_SELFIES0971a.jpg?auto=compress,format&amp;width=50
+                  "
+                  data-srcset="https://images.prismic.io/juliajohnson/a532690a-e7b9-45b1-b3eb-cb3a7e0faad8_JUCO_SELFIES0971a.jpg?auto=compress,format&amp;width=600"
+                  media="(min-width: 300px)"
+                />
+                <img
+                  src="https://images.prismic.io/juliajohnson/a532690a-e7b9-45b1-b3eb-cb3a7e0faad8_JUCO_SELFIES0971a.jpg?auto=compress,format&amp;width=50"
+                  class="c-navbar-image__media lazyload"
+                  alt=""
+                />
+              </picture>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main data-barba="wrapper">
+      <section data-barba="container" data-barba-namespace="home-section" class="c-home">
+        <div id="js-home-items">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="c-home__item js-home-item">
+                <a
+                  href="/editorial/index.html"
+                  class="zoom c-home__media-container js-home-item-media-container"
+                  style="background-color: #1f6ad1; color: #1f6ad1"
+                >
+                  <!-- Feed 1 -->
+                  <picture>
+                    <!-- Image Mobile view -->
+                    <source
+                      type="image/webp"
+                      data-srcset="/images/webp/1_feed_small_x320.webp"
+                      media="(min-width: 320px) and (max-width: 767px)"
+                      srcset="/images/webp/1_feed_small_x320.webp"
+                    />
+                    <source
+                      type="image/jpeg"
+                      data-srcset="/images/1_feed_small_x320.jpg"
+                      media="(min-width: 320px) and (max-width: 767px)"
+                      srcset="/images/1_feed_small_x320.jpg"
+                    />
+                    <!-- Image Tablet view -->
+                    <source
+                      type="image/webp"
+                      data-srcset="/images/webp/1_feed_medium_x768.webp"
+                      media="(min-width: 768px) and (max-width: 1439px)"
+                      srcset="/images/webp/1_feed_medium_x768.webp"
+                    />
+                    <source
+                      type="image/jpeg"
+                      data-srcset="/images/1_feed_medium_x768.jpg"
+                      media="(min-width: 768px) and (max-width: 1439px)"
+                      srcset="/images/1_feed_medium_x768.jpg"
+                    />
+                    <!-- Image Desktop view -->
+                    <source
+                      type="image/webp"
+                      data-srcset="/images/webp/1_feed_large_x1440.webp"
+                      media="(min-width: 1440px)"
+                      srcset="/images/webp/1_feed_large_x1440.webp"
+                    />
+                    <source
+                      type="image/jpeg"
+                      data-srcset="/images/1_feed_large_x1440.jpg"
+                      media="(min-width: 1440px)"
+                      srcset="/images/1_feed_large_x1440.jpg"
+                    />
+                    <img
+                      data-src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                      data-srcset="/images/1_feed_small_x320.jpg 320w, /images/1_feed_medium_x768.jpg 768w, /images/1_feed_large_x1440.jpg 1440w"
+                      loading="lazy"
+                      class="c-home__media js-home-item-media lazyload"
+                      alt="8. PICTURE tag + webP + native lazy load + lazy load by Lazysizes + responsive"
+                      title="8. PICTURE tag + webP + native lazy load + lazy load by Lazysizes + responsive"
+                      srcset="
+                        /images/1_feed_small_x320.jpg   320w,
+                        /images/1_feed_medium_x768.jpg  768w,
+                        /images/1_feed_large_x1440.jpg 1440w
+                      "
+                      src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                    />
+                  </picture>
+                  <div class="project__caption">As the Crow Flies</div>
+                </a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="c-home__item js-home-item">
+                <a
+                  href="./personal"
+                  class="zoom c-home__media-container js-home-item-media-container"
+                  style="
+                    background-color: rgb(243, 80, 17);
+                    color: rgb(243, 80, 17);
+                  "
+                >
+                  <!-- Feed 2 -->
+                  <picture>
+                    <!-- Image Mobile view -->
+                    <source
+                      type="image/webp"
+                      data-srcset="/images/webp/2_feed_small_x320.webp"
+                      media="(min-width: 320px) and (max-width: 767px)"
+                      srcset="/images/webp/2_feed_small_x320.webp"
+                    />
+                    <source
+                      type="image/jpeg"
+                      data-srcset="/images/2_feed_small_x320.jpg"
+                      media="(min-width: 320px) and (max-width: 767px)"
+                      srcset="/images/2_feed_small_x320.jpg"
+                    />
+                    <!-- Image Tablet view -->
+                    <source
+                      type="image/webp"
+                      data-srcset="/images/webp/2_feed_medium_x768.webp"
+                      media="(min-width: 768px) and (max-width: 1439px)"
+                      srcset="/images/webp/2_feed_medium_x768.webp"
+                    />
+                    <source
+                      type="image/jpeg"
+                      data-srcset="/images/2_feed_medium_x768.jpg"
+                      media="(min-width: 768px) and (max-width: 1439px)"
+                      srcset="/images/2_feed_medium_x768.jpg"
+                    />
+                    <!-- Image Desktop view -->
+                    <source
+                      type="image/webp"
+                      data-srcset="/images/webp/2_feed_large_x1440.webp"
+                      media="(min-width: 1440px)"
+                      srcset="/images/webp/2_feed_large_x1440.webp"
+                    />
+                    <source
+                      type="image/jpeg"
+                      data-srcset="/images/2_feed_large_x1440.jpg"
+                      media="(min-width: 1440px)"
+                      srcset="/images/2_feed_large_x1440.jpg"
+                    />
+                    <img
+                      data-src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                      data-srcset="/images/2_feed_small_x320.jpg 320w, /images/2_feed_medium_x768.jpg 768w, /images/2_feed_large_x1440.jpg 1440w"
+                      loading="lazy"
+                      class="c-home__media js-home-item-media lazyload"
+                      alt="8. PICTURE tag + webP + native lazy load + lazy load by Lazysizes + responsive"
+                      title="8. PICTURE tag + webP + native lazy load + lazy load by Lazysizes + responsive"
+                      srcset="
+                        /images/2_feed_small_x320.jpg   320w,
+                        /images/2_feed_medium_x768.jpg  768w,
+                        /images/2_feed_large_x1440.jpg 1440w
+                      "
+                      src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                    />
+                  </picture>
+                  <div class="project__caption">IN2 Design</div>
+                </a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="c-home__item js-home-item">
+                <a
+                  href="./personal"
+                  class="zoom c-home__media-container js-home-item-media-container"
+                  style="
+                    background-color: rgb(37, 173, 142);
+                    color: rgb(37, 173, 142);
+                  "
+                >
+                  <!-- Feed 3 -->
+                  <picture>
+                    <!-- Image Mobile view -->
+                    <source
+                      type="image/webp"
+                      data-srcset="/images/webp/3_feed_small_x320.webp"
+                      media="(min-width: 320px) and (max-width: 767px)"
+                      srcset="/images/webp/3_feed_small_x320.webp"
+                    />
+                    <source
+                      type="image/jpeg"
+                      data-srcset="/images/3_feed_small_x320.jpg"
+                      media="(min-width: 320px) and (max-width: 767px)"
+                      srcset="/images/3_feed_small_x320.jpg"
+                    />
+                    <!-- Image Tablet view -->
+                    <source
+                      type="image/webp"
+                      data-srcset="/images/webp/3_feed_medium_x768.webp"
+                      media="(min-width: 768px) and (max-width: 1439px)"
+                      srcset="/images/webp/3_feed_medium_x768.webp"
+                    />
+                    <source
+                      type="image/jpeg"
+                      data-srcset="/images/3_feed_medium_x768.jpg"
+                      media="(min-width: 768px) and (max-width: 1439px)"
+                      srcset="/images/3_feed_medium_x768.jpg"
+                    />
+                    <!-- Image Desktop view -->
+                    <source
+                      type="image/webp"
+                      data-srcset="/images/webp/3_feed_large_x1440.webp"
+                      media="(min-width: 1440px)"
+                      srcset="/images/webp/3_feed_large_x1440.webp"
+                    />
+                    <source
+                      type="image/jpeg"
+                      data-srcset="/images/3_feed_large_x1440.jpg"
+                      media="(min-width: 1440px)"
+                      srcset="/images/3_feed_large_x1440.jpg"
+                    />
+                    <img
+                      data-src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                      data-srcset="/images/3_feed_small_x320.jpg 320w, /images/3_feed_medium_x768.jpg 768w, /images/3_feed_large_x1440.jpg 1440w"
+                      loading="lazy"
+                      class="c-home__media js-home-item-media lazyload"
+                      alt="8. PICTURE tag + webP + native lazy load + lazy load by Lazysizes + responsive"
+                      title="8. PICTURE tag + webP + native lazy load + lazy load by Lazysizes + responsive"
+                      srcset="
+                        /images/3_feed_small_x320.jpg   320w,
+                        /images/3_feed_medium_x768.jpg  768w,
+                        /images/3_feed_large_x1440.jpg 1440w
+                      "
+                      src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                    />
+                  </picture>
+                  <div class="project__caption">IN2 Design Portraits</div>
+                </a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="c-home__item js-home-item">
+                <a
+                  href="./personal"
+                  class="zoom c-home__media-container js-home-item-media-container"
+                  style="background-color: #eeca6f; color: #eeca6f"
+                >
+                  <!-- Feed 4 -->
+                  <picture>
+                    <!-- Image Mobile view -->
+                    <source
+                      type="image/webp"
+                      data-srcset="/images/webp/4_feed_small_x320.webp"
+                      media="(min-width: 320px) and (max-width: 767px)"
+                      srcset="/images/webp/4_feed_small_x320.webp"
+                    />
+                    <source
+                      type="image/jpeg"
+                      data-srcset="/images/4_feed_small_x320.jpg"
+                      media="(min-width: 320px) and (max-width: 767px)"
+                      srcset="/images/4_feed_small_x320.jpg"
+                    />
+                    <!-- Image Tablet view -->
+                    <source
+                      type="image/webp"
+                      data-srcset="/images/webp/4_feed_medium_x768.webp"
+                      media="(min-width: 768px) and (max-width: 1439px)"
+                      srcset="/images/webp/4_feed_medium_x768.webp"
+                    />
+                    <source
+                      type="image/jpeg"
+                      data-srcset="/images/4_feed_medium_x768.jpg"
+                      media="(min-width: 768px) and (max-width: 1439px)"
+                      srcset="/images/4_feed_medium_x768.jpg"
+                    />
+                    <!-- Image Desktop view -->
+                    <source
+                      type="image/webp"
+                      data-srcset="/images/webp/4_feed_large_x1440.webp"
+                      media="(min-width: 1440px)"
+                      srcset="/images/webp/4_feed_large_x1440.webp"
+                    />
+                    <source
+                      type="image/jpeg"
+                      data-srcset="/images/4_feed_large_x1440.jpg"
+                      media="(min-width: 1440px)"
+                      srcset="/images/4_feed_large_x1440.jpg"
+                    />
+                    <img
+                      data-src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                      data-srcset="/images/4_feed_small_x320.jpg 320w, /images/4_feed_medium_x768.jpg 768w, /images/4_feed_large_x1440.jpg 1440w"
+                      loading="lazy"
+                      class="c-home__media js-home-item-media lazyload"
+                      alt="8. PICTURE tag + webP + native lazy load + lazy load by Lazysizes + responsive"
+                      title="8. PICTURE tag + webP + native lazy load + lazy load by Lazysizes + responsive"
+                      srcset="
+                        /images/4_feed_small_x320.jpg   320w,
+                        /images/4_feed_medium_x768.jpg  768w,
+                        /images/4_feed_large_x1440.jpg 1440w
+                      "
+                      src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                    />
+                  </picture>
+                  <div class="project__caption">Publica Images</div>
+                </a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="c-home__item js-home-item">
+                <a
+                  href="/professional"
+                  class="zoom c-home__media-container js-home-item-media-container"
+                  style="background-color: #d719df; color: #d719df"
+                >
+                  <!-- Feed 5 -->
+                  <picture>
+                    <!-- Image Mobile view -->
+                    <source
+                      type="image/webp"
+                      data-srcset="/images/webp/5_feed_small_x320.webp"
+                      media="(min-width: 320px) and (max-width: 767px)"
+                      srcset="/images/webp/5_feed_small_x320.webp"
+                    />
+                    <source
+                      type="image/jpeg"
+                      data-srcset="/images/5_feed_small_x320.jpg"
+                      media="(min-width: 320px) and (max-width: 767px)"
+                      srcset="/images/5_feed_small_x320.jpg"
+                    />
+                    <!-- Image Tablet view -->
+                    <source
+                      type="image/webp"
+                      data-srcset="/images/webp/5_feed_medium_x768.webp"
+                      media="(min-width: 768px) and (max-width: 1439px)"
+                      srcset="/images/webp/5_feed_medium_x768.webp"
+                    />
+                    <source
+                      type="image/jpeg"
+                      data-srcset="/images/5_feed_medium_x768.jpg"
+                      media="(min-width: 768px) and (max-width: 1439px)"
+                      srcset="/images/5_feed_medium_x768.jpg"
+                    />
+                    <!-- Image Desktop view -->
+                    <source
+                      type="image/webp"
+                      data-srcset="/images/webp/5_feed_large_x1440.webp"
+                      media="(min-width: 1440px)"
+                      srcset="/images/webp/5_feed_large_x1440.webp"
+                    />
+                    <source
+                      type="image/jpeg"
+                      data-srcset="/images/5_feed_large_x1440.jpg"
+                      media="(min-width: 1440px)"
+                      srcset="/images/5_feed_large_x1440.jpg"
+                    />
+                    <img
+                      data-src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                      data-srcset="/images/5_feed_small_x320.jpg 320w, /images/5_feed_medium_x768.jpg 768w, /images/5_feed_large_x1440.jpg 1440w"
+                      loading="lazy"
+                      class="c-home__media js-home-item-media lazyload"
+                      alt="8. PICTURE tag + webP + native lazy load + lazy load by Lazysizes + responsive"
+                      title="8. PICTURE tag + webP + native lazy load + lazy load by Lazysizes + responsive"
+                      srcset="
+                        /images/5_feed_small_x320.jpg   320w,
+                        /images/5_feed_medium_x768.jpg  768w,
+                        /images/5_feed_large_x1440.jpg 1440w
+                      "
+                      src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                    />
+                  </picture>
+                  <div class="project__caption">Portraits II</div>
+                </a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="c-home__item js-home-item">
+                <a
+                  href="./personal"
+                  class="zoom c-home__media-container js-home-item-media-container"
+                  style="
+                    background-color: rgb(255, 82, 0);
+                    color: rgb(255, 82, 0);
+                  "
+                >
+                  <!-- Feed 6 -->
+                  <picture>
+                    <!-- Image Mobile view -->
+                    <source
+                      type="image/webp"
+                      data-srcset="/images/webp/6_feed_small_x320.webp"
+                      media="(min-width: 320px) and (max-width: 767px)"
+                      srcset="/images/webp/6_feed_small_x320.webp"
+                    />
+                    <source
+                      type="image/jpeg"
+                      data-srcset="/images/6_feed_small_x320.jpg"
+                      media="(min-width: 320px) and (max-width: 767px)"
+                      srcset="/images/6_feed_small_x320.jpg"
+                    />
+                    <!-- Image Tablet view -->
+                    <source
+                      type="image/webp"
+                      data-srcset="/images/webp/6_feed_medium_x768.webp"
+                      media="(min-width: 768px) and (max-width: 1439px)"
+                      srcset="/images/webp/6_feed_medium_x768.webp"
+                    />
+                    <source
+                      type="image/jpeg"
+                      data-srcset="/images/6_feed_medium_x768.jpg"
+                      media="(min-width: 768px) and (max-width: 1439px)"
+                      srcset="/images/6_feed_medium_x768.jpg"
+                    />
+                    <!-- Image Desktop view -->
+                    <source
+                      type="image/webp"
+                      data-srcset="/images/webp/6_feed_large_x1440.webp"
+                      media="(min-width: 1440px)"
+                      srcset="/images/webp/6_feed_large_x1440.webp"
+                    />
+                    <source
+                      type="image/jpeg"
+                      data-srcset="/images/6_feed_large_x1440.jpg"
+                      media="(min-width: 1440px)"
+                      srcset="/images/6_feed_large_x1440.jpg"
+                    />
+                    <img
+                      data-src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                      data-srcset="/images/6_feed_small_x320.jpg 320w, /images/6_feed_medium_x768.jpg 768w, /images/6_feed_large_x1440.jpg 1440w"
+                      loading="lazy"
+                      class="c-home__media js-home-item-media lazyload"
+                      alt="8. PICTURE tag + webP + native lazy load + lazy load by Lazysizes + responsive"
+                      title="8. PICTURE tag + webP + native lazy load + lazy load by Lazysizes + responsive"
+                      srcset="
+                        /images/6_feed_small_x320.jpg   320w,
+                        /images/6_feed_medium_x768.jpg  768w,
+                        /images/6_feed_large_x1440.jpg 1440w
+                      "
+                      src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                    />
+                  </picture>
+                  <div class="project__caption">Furnitures & Lights</div>
+                </a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="c-home__item js-home-item">
+                <a
+                  href="./personal"
+                  class="zoom c-home__media-container js-home-item-media-container"
+                  style="background-color: #107541; color: #107541"
+                >
+                  <!-- Feed 7 -->
+                  <picture>
+                    <!-- Image Mobile view -->
+                    <source
+                      type="image/webp"
+                      data-srcset="/images/webp/7_feed_small_x320.webp"
+                      media="(min-width: 320px) and (max-width: 767px)"
+                      srcset="/images/webp/7_feed_small_x320.webp"
+                    />
+                    <source
+                      type="image/jpeg"
+                      data-srcset="/images/7_feed_small_x320.jpg"
+                      media="(min-width: 320px) and (max-width: 767px)"
+                      srcset="/images/7_feed_small_x320.jpg"
+                    />
+                    <!-- Image Tablet view -->
+                    <source
+                      type="image/webp"
+                      data-srcset="/images/webp/7_feed_medium_x768.webp"
+                      media="(min-width: 768px) and (max-width: 1439px)"
+                      srcset="/images/webp/7_feed_medium_x768.webp"
+                    />
+                    <source
+                      type="image/jpeg"
+                      data-srcset="/images/7_feed_medium_x768.jpg"
+                      media="(min-width: 768px) and (max-width: 1439px)"
+                      srcset="/images/7_feed_medium_x768.jpg"
+                    />
+                    <!-- Image Desktop view -->
+                    <source
+                      type="image/webp"
+                      data-srcset="/images/webp/7_feed_large_x1440.webp"
+                      media="(min-width: 1440px)"
+                      srcset="/images/webp/7_feed_large_x1440.webp"
+                    />
+                    <source
+                      type="image/jpeg"
+                      data-srcset="/images/7_feed_large_x1440.jpg"
+                      media="(min-width: 1440px)"
+                      srcset="/images/7_feed_large_x1440.jpg"
+                    />
+                    <img
+                      data-src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                      data-srcset="/images/7_feed_small_x320.jpg 320w, /images/7_feed_medium_x768.jpg 768w, /images/7_feed_large_x1440.jpg 1440w"
+                      loading="lazy"
+                      class="c-home__media js-home-item-media lazyload"
+                      alt="8. PICTURE tag + webP + native lazy load + lazy load by Lazysizes + responsive"
+                      title="8. PICTURE tag + webP + native lazy load + lazy load by Lazysizes + responsive"
+                      srcset="
+                        /images/7_feed_small_x320.jpg   320w,
+                        /images/7_feed_medium_x768.jpg  768w,
+                        /images/7_feed_large_x1440.jpg 1440w
+                      "
+                      src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                    />
+                  </picture>
+                  <div class="project__caption">Superstars</div>
+                </a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="c-home__item js-home-item">
+                <a
+                  href="/professional"
+                  class="zoom c-home__media-container js-home-item-media-container"
+                  style="background-color: #078a26; color: #078a26"
+                >
+                  <!-- Feed 8 -->
+                  <picture>
+                    <!-- Image Mobile view -->
+                    <source
+                      type="image/webp"
+                      data-srcset="/images/webp/8_feed_small_x320.webp"
+                      media="(min-width: 320px) and (max-width: 767px)"
+                      srcset="/images/webp/8_feed_small_x320.webp"
+                    />
+                    <source
+                      type="image/jpeg"
+                      data-srcset="/images/8_feed_small_x320.jpg"
+                      media="(min-width: 320px) and (max-width: 767px)"
+                      srcset="/images/8_feed_small_x320.jpg"
+                    />
+                    <!-- Image Tablet view -->
+                    <source
+                      type="image/webp"
+                      data-srcset="/images/webp/8_feed_medium_x768.webp"
+                      media="(min-width: 768px) and (max-width: 1439px)"
+                      srcset="/images/webp/8_feed_medium_x768.webp"
+                    />
+                    <source
+                      type="image/jpeg"
+                      data-srcset="/images/8_feed_medium_x768.jpg"
+                      media="(min-width: 768px) and (max-width: 1439px)"
+                      srcset="/images/8_feed_medium_x768.jpg"
+                    />
+                    <!-- Image Desktop view -->
+                    <source
+                      type="image/webp"
+                      data-srcset="/images/webp/8_feed_large_x1440.webp"
+                      media="(min-width: 1440px)"
+                      srcset="/images/webp/8_feed_large_x1440.webp"
+                    />
+                    <source
+                      type="image/jpeg"
+                      data-srcset="/images/8_feed_large_x1440.jpg"
+                      media="(min-width: 1440px)"
+                      srcset="/images/8_feed_large_x1440.jpg"
+                    />
+                    <img
+                      data-src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                      data-srcset="/images/8_feed_small_x320.jpg 320w, /images/8_feed_medium_x768.jpg 768w, /images/8_feed_large_x1440.jpg 1440w"
+                      loading="lazy"
+                      class="c-home__media js-home-item-media lazyload"
+                      alt="8. PICTURE tag + webP + native lazy load + lazy load by Lazysizes + responsive"
+                      title="8. PICTURE tag + webP + native lazy load + lazy load by Lazysizes + responsive"
+                      srcset="
+                        /images/8_feed_small_x320.jpg   320w,
+                        /images/8_feed_medium_x768.jpg  768w,
+                        /images/8_feed_large_x1440.jpg 1440w
+                      "
+                      src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                    />
+                  </picture>
+                  <div class="project__caption">Work in Progres II</div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer
+      id="footer"
+      class="flex flex-initial flex-row flex-wrap p-6 lg:mt-20"
+    >
+      <div class="max-w-full basis-full">
+        <ul class="inline-block basis-auto">
+          <li>
+            <p class="text-10xl uppercase">Editorial</p>
+          </li>
+          <li>
+            <p class="text-10xl uppercase">Artwork</p>
+          </li>
+          <li>
+            <p class="text-10xl uppercase">Commercial</p>
+          </li>
+        </ul>
+      </div>
+      <div class="flex w-full flex-col pt-2 lg:flex-row">
+        <div class="flex max-w-full basis-full lg:basis-1/2">
+          <p class="text-lg tracking-tight">
+            ©2022 <a href="/legal">All Rights Reserved</a>
+          </p>
+        </div>
+        <div class="flex max-w-full basis-full lg:basis-1/4">
+          <p class="text-lg tracking-tight">
+            <a href="mailto:hello@adriansouto.com">E-Mail</a>,
+            <a href="https://www.instagram.com/adriansouto" target="_blank"
+              >Instagram</a
+            >
+          </p>
+        </div>
+        <div class="flex max-w-full basis-full lg:basis-1/4 lg:justify-end">
+          <p class="text-lg tracking-tight">
+            <a href="mailto:jlbyone1@gmail.com" target="_blank"
+              >Designed by JL</a
+            >
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      if (!isMobile() || !isTouchDevice()) {
+        const projectCaption = document.querySelectorAll(".project__caption");
+        const projectCursor = document.getElementById("cursor-outer");
+
+        for (let i = 0; i < projectCaption.length; i++) {
+          const element = projectCaption[i];
+          const clonnedProject = projectCursor.appendChild(
+            element.cloneNode(true)
+          );
+          clonnedProject.classList.add("is-inactive");
+          console.log(clonnedProject.textContent);
+        }
+        const projectOriginal = document.querySelectorAll(".zoom");
+        projectOriginal.forEach((element) => {
+          element.addEventListener("mouseover", this.mouseOver);
+          element.addEventListener("mouseout", this.mouseOut);
+        });
+      }
+
+      function mouseOver() {
+        var hoveredProject = $(this).find(".project__caption").text();
+        console.log(hoveredProject);
+        //Custom Function to achieve same as => :contains() jquery
+        function contains(selector, text) {
+          var elements = document.querySelectorAll(selector);
+          return [].filter.call(elements, function (element) {
+            return new RegExp(text).test(element.textContent);
+          });
+        }
+
+        const hoveredProjectActive = contains(
+          "#cursor-outer .project__caption",
+          hoveredProject
+        );
+        console.log(hoveredProjectActive);
+
+        $(hoveredProjectActive).filter(function () {
+          if ($(this).text() === hoveredProject) {
+            $(this).removeClass("is-inactive").addClass("is-active");
+            gsap.to(document.querySelector("#cursor-outer .is-active"), 0.8, {
+              y: "0",
+              yPercent: 0,
+              ease: Expo.easeOut,
+            });
+            gsap.to(document.querySelector("#cursor-outer .is-inactive"), 0, {
+              y: "0",
+              delay: 0.01,
+              yPercent: 120,
+              onComplete: setBack(),
+              ease: Expo.easeOut,
+            });
+          }
+        });
+      }
+      function mouseOut() {
+        var hoveredProject = $(this).find(".project__caption").text();
+        //Custom Function to achieve same as => :contains() jquery
+        function contains(selector, text) {
+          var elements = document.querySelectorAll(selector);
+          return [].filter.call(elements, function (element) {
+            return new RegExp(text).test(element.textContent);
+          });
+        }
+
+        const hoveredProjectActive = contains(
+          ".project__caption",
+          hoveredProject
+        );
+        gsap.to(document.querySelector("#cursor-outer .is-active"), 0.8, {
+          y: "0",
+          yPercent: -120,
+          onComplete: setBack(),
+          ease: Expo.easeOut,
+        });
+        gsap.to(document.querySelector("#cursor-outer .is-inactive"), 0, {
+          y: "0",
+          delay: 0.01,
+          yPercent: 120,
+          ease: Expo.easeOut,
+        });
+        hoveredProjectActive.forEach((element) => {
+          element.classList.remove("is-active");
+          element.classList.add("is-inactive");
+        });
+      }
+      function setBack() {
+        if (document.querySelector("#cursor-outer .is-inactive")) {
+          gsap.to(document.querySelectorAll("#cursor-outer .is-inactive"), 0, {
+            y: "0",
+            yPercent: 120,
+            ease: Expo.easeOut,
+          });
+        }
+      }
+    </script>
+
+    <script>
+      document.body.setAttribute("style", "overflow:hidden;");
+      const tll = gsap.timeline({
+        paused: "true",
+      });
+      tll.to("#percent, #bar", {
+        duration: 0.5,
+        opacity: 0,
+        zIndex: -1,
+      });
+      tll.to("#preloader", {
+        duration: 1,
+        y: "-100vh",
+      });
+      var width = 1;
+      var bar = document.getElementById("barconfirm");
+      var id;
+      function loading() {
+        id = setInterval(frame, 25);
+      }
+      function frame() {
+        if (width >= 100) {
+          clearInterval(id);
+          tll.play();
+        } else {
+          width++;
+          bar.style.width = width + "%";
+          document.getElementById("percent").innerHTML = width + "%";
+        }
+      }
+      setTimeout(function () {
+        document.body.setAttribute("style", "overflow:visible;");
+      }, 2500);
+    </script>
   </body>
 </html>
