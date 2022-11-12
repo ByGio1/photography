@@ -410,22 +410,74 @@ window.addEventListener("DOMContentLoaded", function () {
     tl.set(loadingScreen, { left: "-100%" });
   }
 
-  $(function () {
-    barba.init({
-      sync: true,
+  barba.init({
+    sync: true,
 
-      transitions: [
-        {
-          async leave(data) {
-            const done = this.async();
+    transitions: [
+      {
+        async leave(data) {
+          const done = this.async();
 
-            pageTransition();
-            await delay(1000);
-            done();
-          },
+          pageTransition();
+          await delay(1000);
+          done();
         },
-      ],
-    });
+        async enter(data) {
+          GlobalPage.Init();
+        },
+
+        async once(data) {
+          GlobalPage.Init();
+        },
+      },
+    ],
   });
 });
 
+pageTransition = () => {
+  var timeline = gsap.timeline();
+
+  timeline.to("header", {
+    zIndex: 1,
+  });
+
+  timeline.to(".page-transition", {
+    duration: 1,
+    height: "100%",
+    left: "0%",
+  });
+
+  timeline.to(".page-transition", {
+    duration: 0.8,
+    height: "100%",
+    left: "100%",
+    delay: 0.3,
+  });
+
+  timeline.set(".page-transition", {
+    left: "-100%",
+  });
+};
+
+delay = (n) => {
+  n = n || 2000;
+  return new Promise((done) => {
+    setTimeout(() => {
+      done();
+    }, n);
+  });
+};
+
+barba.init({
+  sync: true,
+  transitions: [
+    {
+      async leave(data) {
+        const done = this.async();
+        pageTransition();
+        await delay(1000);
+        done();
+      },
+    },
+  ],
+});
