@@ -13,8 +13,6 @@
       integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA="
       crossorigin="anonymous"
     ></script>
-    <!-- Barba Core -->
-    <script src="https://unpkg.com/@barba/core"></script>
     <!-- GSAP -->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"
@@ -36,24 +34,15 @@
     ></script>
     <!-- LazySizes -->
     <script src="/src/lazysizes.min.js"></script>
-    <!-- Global JS File -->
+    <!-- Global JS -->
     <script src="/src/global.js"></script>
   </head>
 
-  <body id="app" class="bg-white scrollbar-hide">
+  <body id="app" onload="loading()" class="bg-white scrollbar-hide">
     <!-- Enable JS -->
     <noscript>
       <div class="no-js">Please enable JavaScript to view this website.</div>
     </noscript>
-    <!-- Barba JS Loading Screen -->
-    <div
-      class="pointer-events-none fixed top-0 left-0 z-50 h-screen w-full overflow-hidden"
-    >
-      <div
-        id="loading-screen"
-        class="relative h-full w-0 bg-black px-0 pt-0"
-      ></div>
-    </div>
     <!-- Custom Cursor -->
     <div class="cursor">
       <div id="cursor-inner">
@@ -73,11 +62,14 @@
       <div id="cursor-outer"></div>
     </div>
     <!-- Progress Bar -->
-    <div class="fixed top-0 left-0 h-2 w-full bg-transparent">
+    <div class="fixed top-0 left-0 z-30 w-full bg-transparent">
       <div class="h-2 w-0 bg-black" id="progressBar"></div>
     </div>
     <!-- Navigation -->
-    <nav class="c-navbar flex items-center justify-between p-6" id="js-navbar">
+    <nav
+      class="c-navbar flex items-center justify-between py-6 px-4"
+      id="js-navbar"
+    >
       <!-- Logo -->
       <div class="z-[300]">
         <a href="/index.html" id="project" class="text-lg tracking-tight"
@@ -94,7 +86,7 @@
       </button>
       <!-- Menu Content -->
       <div class="c-navbar__links" id="js-navbar-links">
-        <div class="container-fluid px-4">
+        <div class="container-fluid relative px-4">
           <div class="row mx-2 flex flex-wrap">
             <ul class="c-navbar__list h-screen justify-center space-y-4 px-2">
               <li class="c-navbar__list-item flex justify-center">
@@ -339,8 +331,8 @@
       </div>
     </nav>
 
+    <!-- Masonry Showcase Section -->
     <main>
-      <!-- Masonry Showcase Section -->
       <section
         class="mx-auto mt-20 flex w-full flex-row flex-wrap gap-4 px-4 lg:mt-40"
       >
@@ -640,5 +632,137 @@
         </div>
       </div>
     </footer>
+
+    <script>
+      if (!isMobile() || !isTouchDevice()) {
+        const projectCaption = document.querySelectorAll(".project__caption");
+        const projectCursor = document.getElementById("cursor-outer");
+
+        for (let i = 0; i < projectCaption.length; i++) {
+          const element = projectCaption[i];
+          const clonnedProject = projectCursor.appendChild(
+            element.cloneNode(true)
+          );
+          clonnedProject.classList.add("is-inactive");
+          console.log(clonnedProject.textContent);
+        }
+        const projectOriginal = document.querySelectorAll(".zoom");
+        projectOriginal.forEach((element) => {
+          element.addEventListener("mouseover", this.mouseOver);
+          element.addEventListener("mouseout", this.mouseOut);
+        });
+      }
+
+      function mouseOver() {
+        var hoveredProject = $(this).find(".project__caption").text();
+        console.log(hoveredProject);
+        //Custom Function to achieve same as => :contains() jquery
+        function contains(selector, text) {
+          var elements = document.querySelectorAll(selector);
+          return [].filter.call(elements, function (element) {
+            return new RegExp(text).test(element.textContent);
+          });
+        }
+
+        const hoveredProjectActive = contains(
+          "#cursor-outer .project__caption",
+          hoveredProject
+        );
+        console.log(hoveredProjectActive);
+
+        $(hoveredProjectActive).filter(function () {
+          if ($(this).text() === hoveredProject) {
+            $(this).removeClass("is-inactive").addClass("is-active");
+            gsap.to(document.querySelector("#cursor-outer .is-active"), 0.8, {
+              y: "0",
+              yPercent: 0,
+              ease: Expo.easeOut,
+            });
+            gsap.to(document.querySelector("#cursor-outer .is-inactive"), 0, {
+              y: "0",
+              delay: 0.01,
+              yPercent: 120,
+              onComplete: setBack(),
+              ease: Expo.easeOut,
+            });
+          }
+        });
+      }
+      function mouseOut() {
+        var hoveredProject = $(this).find(".project__caption").text();
+        //Custom Function to achieve same as => :contains() jquery
+        function contains(selector, text) {
+          var elements = document.querySelectorAll(selector);
+          return [].filter.call(elements, function (element) {
+            return new RegExp(text).test(element.textContent);
+          });
+        }
+
+        const hoveredProjectActive = contains(
+          ".project__caption",
+          hoveredProject
+        );
+        gsap.to(document.querySelector("#cursor-outer .is-active"), 0.8, {
+          y: "0",
+          yPercent: -120,
+          onComplete: setBack(),
+          ease: Expo.easeOut,
+        });
+        gsap.to(document.querySelector("#cursor-outer .is-inactive"), 0, {
+          y: "0",
+          delay: 0.01,
+          yPercent: 120,
+          ease: Expo.easeOut,
+        });
+        hoveredProjectActive.forEach((element) => {
+          element.classList.remove("is-active");
+          element.classList.add("is-inactive");
+        });
+      }
+      function setBack() {
+        if (document.querySelector("#cursor-outer .is-inactive")) {
+          gsap.to(document.querySelectorAll("#cursor-outer .is-inactive"), 0, {
+            y: "0",
+            yPercent: 120,
+            ease: Expo.easeOut,
+          });
+        }
+      }
+    </script>
+
+    <script>
+      document.body.setAttribute("style", "overflow:hidden;");
+      const tll = gsap.timeline({
+        paused: "true",
+      });
+      tll.to("#percent, #bar", {
+        duration: 0.5,
+        opacity: 0,
+        zIndex: -1,
+      });
+      tll.to("#preloader", {
+        duration: 1,
+        y: "-125vh",
+      });
+      var width = 1;
+      var bar = document.getElementById("barconfirm");
+      var id;
+      function loading() {
+        id = setInterval(frame, 25);
+      }
+      function frame() {
+        if (width >= 100) {
+          clearInterval(id);
+          tll.play();
+        } else {
+          width++;
+          bar.style.width = width + "%";
+          document.getElementById("percent").innerHTML = width + "%";
+        }
+      }
+      setTimeout(function () {
+        document.body.setAttribute("style", "overflow:visible;");
+      }, 2500);
+    </script>
   </body>
 </html>
