@@ -676,7 +676,7 @@ html.no-touchevents .c-home__media-container:hover::before {
     -webkit-box-direction: normal;
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
-    flex-direction: column
+    flex-direction: column;
 }
 
 .c-navbar__list-link {

@@ -13,8 +13,6 @@
       integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA="
       crossorigin="anonymous"
     ></script>
-    <!-- Barba Core -->
-    <script src="https://unpkg.com/@barba/core"></script>
     <!-- GSAP -->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"
@@ -36,7 +34,7 @@
     ></script>
     <!-- LazySizes -->
     <script src="/src/lazysizes.min.js"></script>
-    <!-- Global JS File -->
+    <!-- Global JS -->
     <script src="/src/global.js"></script>
   </head>
 
@@ -58,15 +56,6 @@
         <div id="barconfirm" class="w-px bg-white px-0 py-px"></div>
       </div>
     </div>
-    <!-- Barba JS Loading Screen -->
-    <div
-      class="pointer-events-none fixed top-0 left-0 z-50 h-screen w-full overflow-hidden"
-    >
-      <div
-        id="loading-screen"
-        class="relative h-full w-0 bg-black px-0 pt-0"
-      ></div>
-    </div>
     <!-- Custom Cursor -->
     <div class="cursor">
       <div id="cursor-inner">
@@ -86,11 +75,14 @@
       <div id="cursor-outer"></div>
     </div>
     <!-- Progress Bar -->
-    <div class="fixed top-0 left-0 h-2 w-full bg-transparent">
-      <div class="h-2 w-0 bg-black" id="progressBar"></div>
+    <div class="fixed top-0 left-0 w-full bg-transparent z-30">
+      <div class="w-0 h-2 bg-black" id="progressBar"></div>
     </div>
     <!-- Navigation -->
-    <nav class="c-navbar flex items-center justify-between p-6" id="js-navbar">
+    <nav
+      class="c-navbar flex items-center justify-between py-6 px-4"
+      id="js-navbar"
+    >
       <!-- Logo -->
       <div class="z-[300]">
         <a href="/index.html" id="project" class="text-lg tracking-tight"
@@ -107,7 +99,7 @@
       </button>
       <!-- Menu Content -->
       <div class="c-navbar__links" id="js-navbar-links">
-        <div class="container-fluid px-4">
+        <div class="container-fluid relative px-4">
           <div class="row mx-2 flex flex-wrap">
             <ul class="c-navbar__list h-screen justify-center space-y-4 px-2">
               <li class="c-navbar__list-item flex justify-center">
@@ -352,10 +344,11 @@
       </div>
     </nav>
 
+    <!-- Section Showcase - HomePage -->
     <main>
       <section class="c-home">
         <div id="js-home-items">
-          <div class="container-fluid">
+          <div class="container-fluid relative px-4">
             <div class="row">
               <div class="c-home__item js-home-item">
                 <a
@@ -394,19 +387,19 @@
                     <!-- Image Desktop view -->
                     <source
                       type="image/webp"
-                      data-srcset="/images/webp/1_feed_large_x1440.webp"
-                      media="(min-width: 1440px)"
-                      srcset="/images/webp/1_feed_large_x1440.webp"
+                      data-srcset="/images/webp/1_feed_large_x1200.webp"
+                      media="(min-width: 1024px)"
+                      srcset="/images/webp/1_feed_large_x1200.webp"
                     />
                     <source
                       type="image/jpeg"
-                      data-srcset="/images/1_feed_large_x1440.jpg"
-                      media="(min-width: 1440px)"
-                      srcset="/images/1_feed_large_x1440.jpg"
+                      data-srcset="/images/1_feed_large_x1200.jpg"
+                      media="(min-width: 1024px)"
+                      srcset="/images/1_feed_large_x1200.jpg"
                     />
                     <img
                       data-src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                      data-srcset="/images/1_feed_small_x320.jpg 320w, /images/1_feed_medium_x768.jpg 768w, /images/1_feed_large_x1440.jpg 1440w"
+                      data-srcset="/images/1_feed_small_x320.jpg 320w, /images/1_feed_medium_x768.jpg 768w, /images/1_feed_large_x1200.jpg 1024w"
                       loading="lazy"
                       class="c-home__media js-home-item-media lazyload"
                       alt="8. PICTURE tag + webP + native lazy load + lazy load by Lazysizes + responsive"
@@ -414,7 +407,7 @@
                       srcset="
                         /images/1_feed_small_x320.jpg   320w,
                         /images/1_feed_medium_x768.jpg  768w,
-                        /images/1_feed_large_x1440.jpg 1440w
+                        /images/1_feed_large_x1200.jpg 1024w
                       "
                       src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                     />
@@ -464,19 +457,19 @@
                     <!-- Image Desktop view -->
                     <source
                       type="image/webp"
-                      data-srcset="/images/webp/2_feed_large_x1440.webp"
-                      media="(min-width: 1440px)"
-                      srcset="/images/webp/2_feed_large_x1440.webp"
+                      data-srcset="/images/webp/2_feed_large_x1200.webp"
+                      media="(min-width: 1024px)"
+                      srcset="/images/webp/2_feed_large_x1200.webp"
                     />
                     <source
                       type="image/jpeg"
-                      data-srcset="/images/2_feed_large_x1440.jpg"
-                      media="(min-width: 1440px)"
-                      srcset="/images/2_feed_large_x1440.jpg"
+                      data-srcset="/images/2_feed_large_x1200.jpg"
+                      media="(min-width: 1024px)"
+                      srcset="/images/2_feed_large_x1200.jpg"
                     />
                     <img
                       data-src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                      data-srcset="/images/2_feed_small_x320.jpg 320w, /images/2_feed_medium_x768.jpg 768w, /images/2_feed_large_x1440.jpg 1440w"
+                      data-srcset="/images/2_feed_small_x320.jpg 320w, /images/2_feed_medium_x768.jpg 768w, /images/2_feed_large_x1200.jpg 1024w"
                       loading="lazy"
                       class="c-home__media js-home-item-media lazyload"
                       alt="8. PICTURE tag + webP + native lazy load + lazy load by Lazysizes + responsive"
@@ -484,7 +477,7 @@
                       srcset="
                         /images/2_feed_small_x320.jpg   320w,
                         /images/2_feed_medium_x768.jpg  768w,
-                        /images/2_feed_large_x1440.jpg 1440w
+                        /images/2_feed_large_x1200.jpg 1024w
                       "
                       src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                     />
@@ -534,19 +527,19 @@
                     <!-- Image Desktop view -->
                     <source
                       type="image/webp"
-                      data-srcset="/images/webp/3_feed_large_x1440.webp"
-                      media="(min-width: 1440px)"
-                      srcset="/images/webp/3_feed_large_x1440.webp"
+                      data-srcset="/images/webp/3_feed_large_x1200.webp"
+                      media="(min-width: 1024px)"
+                      srcset="/images/webp/3_feed_large_x1200.webp"
                     />
                     <source
                       type="image/jpeg"
-                      data-srcset="/images/3_feed_large_x1440.jpg"
-                      media="(min-width: 1440px)"
-                      srcset="/images/3_feed_large_x1440.jpg"
+                      data-srcset="/images/3_feed_large_x1200.jpg"
+                      media="(min-width: 1024px)"
+                      srcset="/images/3_feed_large_x1200.jpg"
                     />
                     <img
                       data-src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                      data-srcset="/images/3_feed_small_x320.jpg 320w, /images/3_feed_medium_x768.jpg 768w, /images/3_feed_large_x1440.jpg 1440w"
+                      data-srcset="/images/3_feed_small_x320.jpg 320w, /images/3_feed_medium_x768.jpg 768w, /images/3_feed_large_x1200.jpg 1024w"
                       loading="lazy"
                       class="c-home__media js-home-item-media lazyload"
                       alt="8. PICTURE tag + webP + native lazy load + lazy load by Lazysizes + responsive"
@@ -554,7 +547,7 @@
                       srcset="
                         /images/3_feed_small_x320.jpg   320w,
                         /images/3_feed_medium_x768.jpg  768w,
-                        /images/3_feed_large_x1440.jpg 1440w
+                        /images/3_feed_large_x1200.jpg 1024w
                       "
                       src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                     />
@@ -601,19 +594,19 @@
                     <!-- Image Desktop view -->
                     <source
                       type="image/webp"
-                      data-srcset="/images/webp/4_feed_large_x1440.webp"
-                      media="(min-width: 1440px)"
-                      srcset="/images/webp/4_feed_large_x1440.webp"
+                      data-srcset="/images/webp/4_feed_large_x1200.webp"
+                      media="(min-width: 1024px)"
+                      srcset="/images/webp/4_feed_large_x1200.webp"
                     />
                     <source
                       type="image/jpeg"
-                      data-srcset="/images/4_feed_large_x1440.jpg"
-                      media="(min-width: 1440px)"
-                      srcset="/images/4_feed_large_x1440.jpg"
+                      data-srcset="/images/4_feed_large_x1200.jpg"
+                      media="(min-width: 1024px)"
+                      srcset="/images/4_feed_large_x1200.jpg"
                     />
                     <img
                       data-src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                      data-srcset="/images/4_feed_small_x320.jpg 320w, /images/4_feed_medium_x768.jpg 768w, /images/4_feed_large_x1440.jpg 1440w"
+                      data-srcset="/images/4_feed_small_x320.jpg 320w, /images/4_feed_medium_x768.jpg 768w, /images/4_feed_large_x1200.jpg 1024w"
                       loading="lazy"
                       class="c-home__media js-home-item-media lazyload"
                       alt="8. PICTURE tag + webP + native lazy load + lazy load by Lazysizes + responsive"
@@ -621,7 +614,7 @@
                       srcset="
                         /images/4_feed_small_x320.jpg   320w,
                         /images/4_feed_medium_x768.jpg  768w,
-                        /images/4_feed_large_x1440.jpg 1440w
+                        /images/4_feed_large_x1200.jpg 1024w
                       "
                       src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                     />
@@ -668,19 +661,19 @@
                     <!-- Image Desktop view -->
                     <source
                       type="image/webp"
-                      data-srcset="/images/webp/5_feed_large_x1440.webp"
-                      media="(min-width: 1440px)"
-                      srcset="/images/webp/5_feed_large_x1440.webp"
+                      data-srcset="/images/webp/5_feed_large_x1200.webp"
+                      media="(min-width: 1024px)"
+                      srcset="/images/webp/5_feed_large_x1200.webp"
                     />
                     <source
                       type="image/jpeg"
-                      data-srcset="/images/5_feed_large_x1440.jpg"
-                      media="(min-width: 1440px)"
-                      srcset="/images/5_feed_large_x1440.jpg"
+                      data-srcset="/images/5_feed_large_x1200.jpg"
+                      media="(min-width: 1024px)"
+                      srcset="/images/5_feed_large_x1200.jpg"
                     />
                     <img
                       data-src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                      data-srcset="/images/5_feed_small_x320.jpg 320w, /images/5_feed_medium_x768.jpg 768w, /images/5_feed_large_x1440.jpg 1440w"
+                      data-srcset="/images/5_feed_small_x320.jpg 320w, /images/5_feed_medium_x768.jpg 768w, /images/5_feed_large_x1200.jpg 1024w"
                       loading="lazy"
                       class="c-home__media js-home-item-media lazyload"
                       alt="8. PICTURE tag + webP + native lazy load + lazy load by Lazysizes + responsive"
@@ -688,7 +681,7 @@
                       srcset="
                         /images/5_feed_small_x320.jpg   320w,
                         /images/5_feed_medium_x768.jpg  768w,
-                        /images/5_feed_large_x1440.jpg 1440w
+                        /images/5_feed_large_x1200.jpg 1024w
                       "
                       src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                     />
@@ -738,19 +731,19 @@
                     <!-- Image Desktop view -->
                     <source
                       type="image/webp"
-                      data-srcset="/images/webp/6_feed_large_x1440.webp"
-                      media="(min-width: 1440px)"
-                      srcset="/images/webp/6_feed_large_x1440.webp"
+                      data-srcset="/images/webp/6_feed_large_x1200.webp"
+                      media="(min-width: 1024px)"
+                      srcset="/images/webp/6_feed_large_x1200.webp"
                     />
                     <source
                       type="image/jpeg"
-                      data-srcset="/images/6_feed_large_x1440.jpg"
-                      media="(min-width: 1440px)"
-                      srcset="/images/6_feed_large_x1440.jpg"
+                      data-srcset="/images/6_feed_large_x1200.jpg"
+                      media="(min-width: 1024px)"
+                      srcset="/images/6_feed_large_x1200.jpg"
                     />
                     <img
                       data-src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                      data-srcset="/images/6_feed_small_x320.jpg 320w, /images/6_feed_medium_x768.jpg 768w, /images/6_feed_large_x1440.jpg 1440w"
+                      data-srcset="/images/6_feed_small_x320.jpg 320w, /images/6_feed_medium_x768.jpg 768w, /images/6_feed_large_x1200.jpg 1024w"
                       loading="lazy"
                       class="c-home__media js-home-item-media lazyload"
                       alt="8. PICTURE tag + webP + native lazy load + lazy load by Lazysizes + responsive"
@@ -758,7 +751,7 @@
                       srcset="
                         /images/6_feed_small_x320.jpg   320w,
                         /images/6_feed_medium_x768.jpg  768w,
-                        /images/6_feed_large_x1440.jpg 1440w
+                        /images/6_feed_large_x1200.jpg 1024w
                       "
                       src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                     />
@@ -805,19 +798,19 @@
                     <!-- Image Desktop view -->
                     <source
                       type="image/webp"
-                      data-srcset="/images/webp/7_feed_large_x1440.webp"
-                      media="(min-width: 1440px)"
-                      srcset="/images/webp/7_feed_large_x1440.webp"
+                      data-srcset="/images/webp/7_feed_large_x1200.webp"
+                      media="(min-width: 1024px)"
+                      srcset="/images/webp/7_feed_large_x1200.webp"
                     />
                     <source
                       type="image/jpeg"
-                      data-srcset="/images/7_feed_large_x1440.jpg"
-                      media="(min-width: 1440px)"
-                      srcset="/images/7_feed_large_x1440.jpg"
+                      data-srcset="/images/7_feed_large_x1200.jpg"
+                      media="(min-width: 1024px)"
+                      srcset="/images/7_feed_large_x1200.jpg"
                     />
                     <img
                       data-src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                      data-srcset="/images/7_feed_small_x320.jpg 320w, /images/7_feed_medium_x768.jpg 768w, /images/7_feed_large_x1440.jpg 1440w"
+                      data-srcset="/images/7_feed_small_x320.jpg 320w, /images/7_feed_medium_x768.jpg 768w, /images/7_feed_large_x1200.jpg 1024w"
                       loading="lazy"
                       class="c-home__media js-home-item-media lazyload"
                       alt="8. PICTURE tag + webP + native lazy load + lazy load by Lazysizes + responsive"
@@ -825,7 +818,7 @@
                       srcset="
                         /images/7_feed_small_x320.jpg   320w,
                         /images/7_feed_medium_x768.jpg  768w,
-                        /images/7_feed_large_x1440.jpg 1440w
+                        /images/7_feed_large_x1200.jpg 1024w
                       "
                       src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                     />
@@ -872,19 +865,19 @@
                     <!-- Image Desktop view -->
                     <source
                       type="image/webp"
-                      data-srcset="/images/webp/8_feed_large_x1440.webp"
-                      media="(min-width: 1440px)"
-                      srcset="/images/webp/8_feed_large_x1440.webp"
+                      data-srcset="/images/webp/8_feed_large_x1200.webp"
+                      media="(min-width: 1024px)"
+                      srcset="/images/webp/8_feed_large_x1200.webp"
                     />
                     <source
                       type="image/jpeg"
-                      data-srcset="/images/8_feed_large_x1440.jpg"
-                      media="(min-width: 1440px)"
-                      srcset="/images/8_feed_large_x1440.jpg"
+                      data-srcset="/images/8_feed_large_x1200.jpg"
+                      media="(min-width: 1024px)"
+                      srcset="/images/8_feed_large_x1200.jpg"
                     />
                     <img
                       data-src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                      data-srcset="/images/8_feed_small_x320.jpg 320w, /images/8_feed_medium_x768.jpg 768w, /images/8_feed_large_x1440.jpg 1440w"
+                      data-srcset="/images/8_feed_small_x320.jpg 320w, /images/8_feed_medium_x768.jpg 768w, /images/8_feed_large_x1200.jpg 1024w"
                       loading="lazy"
                       class="c-home__media js-home-item-media lazyload"
                       alt="8. PICTURE tag + webP + native lazy load + lazy load by Lazysizes + responsive"
@@ -892,7 +885,7 @@
                       srcset="
                         /images/8_feed_small_x320.jpg   320w,
                         /images/8_feed_medium_x768.jpg  768w,
-                        /images/8_feed_large_x1440.jpg 1440w
+                        /images/8_feed_large_x1200.jpg 1024w
                       "
                       src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                     />
@@ -1057,7 +1050,7 @@
       });
       tll.to("#preloader", {
         duration: 1,
-        y: "-100vh",
+        y: "-125vh",
       });
       var width = 1;
       var bar = document.getElementById("barconfirm");
