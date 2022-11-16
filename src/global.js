@@ -91,11 +91,11 @@ document.addEventListener("DOMContentLoaded", function () {
   GlobalPage = {
     Init: function () {
       this.onLoaded(),
-      this.CursorAnimation(),
-      this.cursorScale(),
-      this.ItemTransition(),
-      this.BurgerNav(),
-      this.NavLinks();
+        this.CursorAnimation(),
+        this.cursorScale(),
+        this.ItemTransition(),
+        this.BurgerNav(),
+        this.NavLinks();
     },
     onLoaded: function () {
       var cursorLoaded = document.getElementById("cursor-outer");
@@ -264,3 +264,4 @@ document.addEventListener("DOMContentLoaded", function () {
     "color: #fff; background: #000; font-weight: 100"
   );
 });
+

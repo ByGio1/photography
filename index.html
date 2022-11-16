@@ -75,8 +75,15 @@
       <div id="cursor-outer"></div>
     </div>
     <!-- Progress Bar -->
-    <div class="fixed top-0 left-0 w-full bg-transparent z-30">
-      <div class="w-0 h-2 bg-black" id="progressBar"></div>
+    <div class="fixed top-0 left-0 z-30 w-full bg-transparent">
+      <div class="h-2 w-0 bg-black" id="progressBar"></div>
+    </div>
+    <!-- Custom Project Transition -->
+    <div class="align-center transition-project flex justify-center text-xl">
+      <div
+        id="nextProject"
+        class="align-center transition-title flex flex-wrap justify-center"
+      ></div>
     </div>
     <!-- Navigation -->
     <nav
@@ -1036,6 +1043,34 @@
           });
         }
       }
+    </script>
+
+    <script>
+      //Custom Project Transition
+      //Clone Project Text and append it to Custom Project container
+      const projectOriginal = document.querySelectorAll(".zoom");
+      projectOriginal.forEach((element) => {
+        element.addEventListener("click", this.clonningTransitionItems);
+      });
+
+      function clonningTransitionItems() {
+        const projectCap = document.querySelector(".project__caption");
+        const projectTransition = document.getElementById("nextProject");
+
+        projectTransition.appendChild(projectCap.cloneNode(true));
+      }
+
+      /* //Function to change class last word(s)
+    function highlightText(id, className) {
+      let elm = document.getElementById(id);
+      let text = elm.innerText.split(" ");
+  
+      const highlight =
+        ' <span class="' + className + '">' + text.splice(-1).join(" ") + "</span>";
+      elm.innerHTML = text.join(" ") + highlight;
+    }
+  
+    highlightText("Title", "highlight"); */
     </script>
 
     <script>
